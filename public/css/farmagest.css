@@ -17,9 +17,14 @@ body.app-body {
 
 .app-sidebar {
     --bs-offcanvas-width: var(--fg-sidebar-width);
-    background: var(--fg-sidebar);
+    --bs-offcanvas-bg: var(--fg-sidebar);
+
+    /* Bootstrap vuelve transparente el offcanvas en escritorio; mantenemos el fondo oscuro. */
+    background-color: var(--fg-sidebar) !important;
     color: white;
     border-right: 0;
+    scrollbar-color: #54706a var(--fg-sidebar);
+    scrollbar-width: thin;
 }
 
 .app-brand {
