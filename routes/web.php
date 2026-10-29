@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SupplierController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
@@ -13,3 +14,4 @@ Route::get('/', function () {
 })->name('dashboard');
 
 Route::resource('products', ProductController::class)->except(['show']);
+Route::resource('suppliers', SupplierController::class);
