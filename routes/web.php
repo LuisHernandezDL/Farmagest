@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\ProductController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
@@ -13,3 +14,9 @@ Route::get('/', function () {
 })->name('dashboard');
 
 Route::resource('products', ProductController::class)->except(['show']);
+
+Route::get('/inventory', [InventoryController::class, 'index'])
+    ->name('inventory.index');
+
+Route::get('/inventory/movements', [InventoryController::class, 'movements'])
+    ->name('inventory.movements');
