@@ -44,8 +44,9 @@
                 <input type="number" class="form-control" id="sale_price" name="sale_price" min="0" step="0.01" value="{{ old('sale_price', $product->sale_price ?? '0.00') }}" required>
             </div>
             <div class="col-md-3">
-                <label class="form-label" for="stock">Existencias iniciales</label>
-                <input type="number" class="form-control" id="stock" name="stock" min="0" step="1" value="{{ old('stock', $product->stock ?? 0) }}" required>
+                <label class="form-label" for="stock">{{ $editing ? 'Existencias actuales (solo lectura)' : 'Existencias iniciales' }}</label>
+                <input type="number" class="form-control" id="stock" name="stock" min="0" step="1" value="{{ old('stock', $product->stock ?? 0) }}" @if($editing) readonly @endif required>
+                @if($editing)<div class="form-text">Las existencias se actualizan al confirmar compras o ventas.</div>@endif
             </div>
             <div class="col-md-3">
                 <label class="form-label" for="min_stock">Stock mínimo</label>
