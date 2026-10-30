@@ -28,5 +28,12 @@ class ExampleTest extends TestCase
         $response = $this->actingAs($usuario)->get('/');
 
         $response->assertStatus(200);
+        $response->assertViewIs('dashboard.index');
+        $response->assertViewHas('totalProducts', 0);
+        $response->assertViewHas('lowStockProducts', 0);
+        $response->assertViewHas('todaySales', 0);
+        $response->assertViewHas('todayPurchases', 0);
+        $response->assertViewHas('totalSoldToday', fn ($value) => (float) $value === 0.0);
+        $response->assertViewHas('totalPurchasedToday', fn ($value) => (float) $value === 0.0);
     }
 }

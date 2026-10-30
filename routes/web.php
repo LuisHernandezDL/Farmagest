@@ -1,11 +1,11 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\InventoryController;
-use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
 // Inicio de sesión
@@ -20,12 +20,7 @@ Route::post('/logout', [AuthController::class, 'logout'])
 
 // Acceso exclusivo del administrador
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/', function () {
-        $totalProducts = Product::count();
-        $lowStockProducts = Product::whereColumn('stock', '<=', 'min_stock')->count();
-
-        return view('dashboard.index', compact('totalProducts', 'lowStockProducts'));
-    })->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::resource('products', ProductController::class)
         ->except(['show', 'index']);
