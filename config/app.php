@@ -28,6 +28,9 @@ return [
 
     'env' => env('APP_ENV', 'production'),
 
+    'test_admin_password' => env('FARMAGEST_TEST_ADMIN_PASSWORD'),
+    'test_cashier_password' => env('FARMAGEST_TEST_CASHIER_PASSWORD'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode

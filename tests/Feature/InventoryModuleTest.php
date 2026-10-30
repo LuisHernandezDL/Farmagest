@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\User;
 use App\Services\InventoryService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -14,11 +15,18 @@ class InventoryModuleTest extends TestCase
 
     private Category $category;
 
-    protected function setUp(): void
+   protected function setUp(): void
     {
         parent::setUp();
-        $this->category = Category::create(['name' => 'Analgésicos']);
-    }
+
+        $this->actingAs(User::factory()->create([
+            'role' => 'admin',
+        ]));
+
+        $this->category = Category::create([
+            'name' => 'Analgésicos',
+        ]);
+   }
 
     private function createProduct(string $code, string $name, int $stock, int $minStock = 5): Product
     {

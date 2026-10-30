@@ -69,7 +69,9 @@
                         <a href="{{ route($item['route']) }}" class="app-nav-link {{ $active ? 'is-active' : '' }}" @if ($active) aria-current="page" @endif>
                             <i class="bi {{ $item['icon'] }}" aria-hidden="true"></i>
                             <span>{{ $item['label'] }}</span>
-                            @if ($active) <i class="bi bi-chevron-right ms-auto app-nav-chevron" aria-hidden="true"></i> @endif
+                            @if ($active)
+                                <i class="bi bi-chevron-right ms-auto app-nav-chevron" aria-hidden="true"></i>
+                            @endif
                         </a>
                     @else
                         <span class="app-nav-link is-disabled" title="Módulo en desarrollo" aria-disabled="true">
@@ -98,7 +100,29 @@
                     <div class="app-topbar-title">FarmaGest</div>
                 </div>
             </div>
-            <span class="badge rounded-pill app-environment-badge">Entorno de desarrollo</span>
+
+            <div class="d-flex align-items-center gap-3">
+                <span class="badge rounded-pill app-environment-badge">Entorno de desarrollo</span>
+
+                @auth
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-person-circle fs-4" aria-hidden="true"></i>
+                        <span class="fw-semibold">
+                            {{ auth()->user()->role === 'admin' ? 'Administrador' : 'Cajero' }}
+                        </span>
+                    </div>
+                @endauth
+
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit"
+                            class="btn btn-sm text-white"
+                            style="background-color: #147D64; border-color: #147D64;">
+                        <i class="bi bi-box-arrow-right me-1" aria-hidden="true"></i>
+                        Cerrar sesión
+                    </button>
+                </form>
+            </div>
         </header>
 
         <main class="app-content">
@@ -121,7 +145,35 @@
         </main>
     </div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Mostrar errores generales de Laravel.
+        @if ($errors->any() && !request()->routeIs('login.store'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Ha ocurrido un error',
+                text: @json($errors->first()),
+                confirmButtonText: 'Entendido',
+                confirmButtonColor: '#147D64'
+            });
+        @endif
+
+        // Confirmación al cerrar sesión.
+        @if (session('status') && request()->routeIs('login'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Sesión cerrada',
+                text: @json(session('status')),
+                timer: 2500,
+                showConfirmButton: false
+            });
+        @endif
+    });
+</script>
 @stack('scripts')
 </body>
 </html>
