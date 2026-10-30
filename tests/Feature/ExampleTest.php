@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -9,24 +10,30 @@ class ExampleTest extends TestCase
 {
     use RefreshDatabase;
 
-    // Comprueba que el dashboard cargue correctamente y muestre los indicadores en cero cuando no existen registros.
-    public function test_el_panel_principal_responde_correctamente(): void
+    public function test_el_panel_principal_redirige_si_no_hay_sesion(): void
     {
-        // Accede a la página principal del sistema.
+        // El panel debe solicitar el inicio de sesión si el usuario no está autenticado.
         $response = $this->get('/');
 
-        // Verifica que la página responda correctamente.
+        $response->assertRedirect(route('login'));
+    }
+
+    public function test_el_administrador_puede_acceder_al_panel_principal(): void
+    {
+        // Crear un administrador para comprobar el acceso al panel.
+        $usuario = User::factory()->create([
+            'role' => 'admin',
+        ]);
+
+        $response = $this->actingAs($usuario)->get('/');
+
         $response->assertStatus(200);
-
-        // Comprueba que se esté utilizando la vista principal del dashboard.
         $response->assertViewIs('dashboard.index');
-
-        // Verifica que los indicadores tengan valores en cero.
         $response->assertViewHas('totalProducts', 0);
         $response->assertViewHas('lowStockProducts', 0);
         $response->assertViewHas('todaySales', 0);
-        $response->assertViewHas('totalSoldToday', 0);
         $response->assertViewHas('todayPurchases', 0);
-        $response->assertViewHas('totalPurchasedToday', 0);
+        $response->assertViewHas('totalSoldToday', fn ($value) => (float) $value === 0.0);
+        $response->assertViewHas('totalPurchasedToday', fn ($value) => (float) $value === 0.0);
     }
 }
