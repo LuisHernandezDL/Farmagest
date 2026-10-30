@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PurchaseController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
@@ -13,3 +14,10 @@ Route::get('/', function () {
 })->name('dashboard');
 
 Route::resource('products', ProductController::class)->except(['show']);
+
+// Rutas para administrar las compras.
+Route::resource('purchases', PurchaseController::class);
+
+// Ruta para confirmar una compra y actualizar el inventario.
+Route::post('purchases/{purchase}/confirm', [PurchaseController::class, 'confirm'])
+    ->name('purchases.confirm');
