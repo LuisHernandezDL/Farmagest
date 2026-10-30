@@ -46,7 +46,7 @@
         </div>
 
         <div class="app-brand">
-            <a class="app-brand-link" href="{{ route('dashboard') }}">
+            <a class="app-brand-link" href="{{ auth()->user()?->role === 'admin' ? route('dashboard') : route('sales.index') }}">
                 <span class="app-brand-symbol"><i class="bi bi-heart-pulse" aria-hidden="true"></i></span>
                 <span>
                     <span class="app-brand-name">FarmaGest</span>
@@ -59,6 +59,7 @@
             @foreach ($menu as $section)
                 <p class="app-nav-heading">{{ $section['title'] }}</p>
                 @foreach ($section['items'] as $item)
+                    @continue(auth()->user()?->role === 'cashier' && !in_array($item['route'], ['products.index', 'sales.index'], true))
                     @php
                         $available = \Illuminate\Support\Facades\Route::has($item['route']);
                         $prefix = explode('.', $item['route'])[0];

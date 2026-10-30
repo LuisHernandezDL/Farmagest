@@ -45,3 +45,5 @@ Route::middleware(['auth', 'role:admin,cashier'])->group(function () {
         ->name('products.index');
 });
 
+// Cargar las rutas protegidas del modulo de ventas.
+require __DIR__ . '/sales.php';
