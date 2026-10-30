@@ -1,15 +1,11 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
-use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    // Los indicadores provienen de la base de datos y reflejan las existencias actuales.
-    $totalProducts = Product::count();
-    $lowStockProducts = Product::whereColumn('stock', '<=', 'min_stock')->count();
+// Muestra el dashboard como página principal del sistema.
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-    return view('dashboard.index', compact('totalProducts', 'lowStockProducts'));
-})->name('dashboard');
-
+// Define las rutas para las operaciones del módulo de productos.
 Route::resource('products', ProductController::class)->except(['show']);
