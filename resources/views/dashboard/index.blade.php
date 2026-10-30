@@ -143,18 +143,37 @@
                 </a>
             </div>
 
-            {{-- Acceso pendiente de integración de los módulos de compras y ventas --}}
             <div class="col-12 col-md-6">
-                <div class="app-quick-link app-quick-link-disabled">
-                    <span class="app-quick-icon">
-                        <i class="bi bi-receipt" aria-hidden="true"></i>
-                    </span>
+                <a class="app-quick-link" href="{{ route('purchases.index') }}">
+                    <span class="app-quick-icon"><i class="bi bi-bag-plus" aria-hidden="true"></i></span>
                     <span class="flex-grow-1">
-                        <strong class="d-block">Compras y ventas</strong>
-                        <span class="text-secondary small">Acceso pendiente de integrar los módulos</span>
+                        <strong class="d-block">Gestionar compras</strong>
+                        <span class="text-secondary small">Registrar y confirmar compras</span>
                     </span>
-                    <span class="badge text-bg-light border">Pronto</span>
-                </div>
+                    <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                </a>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <a class="app-quick-link" href="{{ route('inventory.index') }}">
+                    <span class="app-quick-icon"><i class="bi bi-box-seam" aria-hidden="true"></i></span>
+                    <span class="flex-grow-1">
+                        <strong class="d-block">Consultar inventario</strong>
+                        <span class="text-secondary small">Existencias y movimientos</span>
+                    </span>
+                    <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                </a>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <a class="app-quick-link" href="{{ route('suppliers.index') }}">
+                    <span class="app-quick-icon"><i class="bi bi-truck" aria-hidden="true"></i></span>
+                    <span class="flex-grow-1">
+                        <strong class="d-block">Gestionar proveedores</strong>
+                        <span class="text-secondary small">Consultar y registrar proveedores</span>
+                    </span>
+                    <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                </a>
             </div>
         </div>
     </div>
