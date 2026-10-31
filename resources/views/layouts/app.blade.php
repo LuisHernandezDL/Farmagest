@@ -11,7 +11,6 @@
 </head>
 <body class="app-body">
 @php
-    // Las opciones futuras permanecen deshabilitadas hasta que sus responsables registren las rutas.
     $menu = [
         [
             'title' => 'GENERAL',
@@ -27,13 +26,6 @@
                 ['label' => 'Compras', 'route' => 'purchases.index', 'icon' => 'bi-bag-plus'],
                 ['label' => 'Inventario', 'route' => 'inventory.index', 'icon' => 'bi-box-seam'],
                 ['label' => 'Ventas', 'route' => 'sales.index', 'icon' => 'bi-receipt'],
-            ],
-        ],
-        [
-            'title' => 'ADMINISTRACIÓN',
-            'items' => [
-                ['label' => 'Reportes', 'route' => 'reports.index', 'icon' => 'bi-bar-chart'],
-                ['label' => 'Usuarios', 'route' => 'users.index', 'icon' => 'bi-people'],
             ],
         ],
     ];
@@ -74,20 +66,10 @@
                                 <i class="bi bi-chevron-right ms-auto app-nav-chevron" aria-hidden="true"></i>
                             @endif
                         </a>
-                    @else
-                        <span class="app-nav-link is-disabled" title="Módulo en desarrollo" aria-disabled="true">
-                            <i class="bi {{ $item['icon'] }}" aria-hidden="true"></i>
-                            <span>{{ $item['label'] }}</span>
-                            <small class="ms-auto">Pronto</small>
-                        </span>
                     @endif
                 @endforeach
             @endforeach
         </nav>
-        <div class="app-sidebar-footer">
-            <div class="small fw-semibold">Proyecto académico</div>
-            <div class="small opacity-75">Versión de desarrollo</div>
-        </div>
     </aside>
 
     <div class="app-main">
@@ -103,8 +85,6 @@
             </div>
 
             <div class="d-flex align-items-center gap-3">
-                <span class="badge rounded-pill app-environment-badge">Entorno de desarrollo</span>
-
                 @auth
                     <div class="d-flex align-items-center gap-2">
                         <i class="bi bi-person-circle fs-4" aria-hidden="true"></i>

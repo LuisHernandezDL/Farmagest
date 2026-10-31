@@ -42,6 +42,10 @@
                     </div>
                 @endif
 
+                @if (session('success'))
+                    <div class="alert alert-success" role="status">{{ session('success') }}</div>
+                @endif
+
                 {{-- El token CSRF protege el envío del formulario. --}}
                 <form method="POST" action="{{ route('login.store') }}">
                     @csrf
@@ -74,6 +78,10 @@
                             autocomplete="current-password"
                             required
                         >
+                    </div>
+
+                    <div class="text-end mb-3">
+                        <a href="{{ route('password.request') }}" class="link-success small">¿Olvidaste tu contraseña?</a>
                     </div>
 
                     <button type="submit" class="btn btn-success w-100">
