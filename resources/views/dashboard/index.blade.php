@@ -124,7 +124,6 @@
                 <h2 class="h5 mb-1">Accesos rápidos</h2>
                 <p class="text-secondary small mb-0">Accede a las funciones disponibles del sistema.</p>
             </div>
-            <span class="badge text-bg-light border">Módulos en integración</span>
         </div>
 
         <div class="row g-3">
